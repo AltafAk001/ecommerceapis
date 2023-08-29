@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const product = require('../models/product');
-const Product = require('../models/product')
+const Product = require('../models/product');
+const { VerifyToken } = require('./verifyToken');
 
 router.get('/getallproducts', async (req, res) => {
     try {
@@ -55,6 +56,23 @@ router.put('/updateproduct/:id', (req, res) => {
             });
         })
         // res.status(200).send('updated successfull')
+    } catch (error) {
+        res.status(500).send(err)
+    }
+})
+
+router.delete('/deleteproductbyid/:id', (req, res) => {
+    const id = req.params.id;
+    try {
+        product.findByIdAndDelete(id, { useFindAndModify: true }).then(data => {
+            if (!data) {
+                res.status(404).send({
+                    message: `Failed to delete Product with id=${id}.`
+                });
+            } else res.send({
+                message: "Product was delete successfully."
+            });
+        })
     } catch (error) {
         res.status(500).send(err)
     }

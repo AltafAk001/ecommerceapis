@@ -7,7 +7,7 @@ const productRouter = require('./Router/product')
 const cors = require('cors')
 
 const app = express();
-
+mongoose.set('strictQuery',true)
 dotenv.config();
 mongoose.connect(process.env.MONGO_URL)
     .then(() => console.log('connected')).catch((err) => console.log('not connected', err))
