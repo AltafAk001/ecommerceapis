@@ -4,12 +4,15 @@ const dotenv = require('dotenv');
 const userRouter = require('./Router/user')
 const authRouter = require('./Router/auth')
 const productRouter = require('./Router/product')
+const cors = require('cors')
 
 const app = express();
 
 dotenv.config();
 mongoose.connect(process.env.MONGO_URL)
     .then(() => console.log('connected')).catch((err) => console.log('not connected', err))
+
+app.use(cors())
 
 app.use(express.json())
 app.use('/api/auth', authRouter)
