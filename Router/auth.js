@@ -13,7 +13,10 @@ router.post('/register', async (req, res) => {
     })
     try {
         const savedUser = await newUser.save();
-        res.status(201).send(savedUser)
+        const accessToken = jwt.sign({
+            id: savedUser._id, isAdmin: savedUser.isAdmin
+        }, process.env.JWT_SECRET, { expiresIn: '3d' })
+        res.status(201).send({ savedUser, accessToken })
     } catch (err) {
         res.status(500).send(err)
     }
@@ -30,7 +33,7 @@ router.post('/login', async (req, res) => {
         const accessToken = jwt.sign({
             id: user._id, isAdmin: user.isAdmin
         }, process.env.JWT_SECRET, { expiresIn: '3d' })
-        
+
         const { password, ...others } = user._doc;
         res.status(200).send({ ...others, accessToken })
     } catch (error) {
