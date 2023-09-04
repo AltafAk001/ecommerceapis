@@ -34,6 +34,9 @@ router.post('/addproduct', async (req, res) => {
         stock: req.body.stock,
         thumbnail: req.body.thumbnail,
         price: req.body.price,
+        occasion: req.body.occasion,
+        colors: req.body.colors,
+        size: req.body.size
     })
     try {
         const savedProduct = await createProduct.save();

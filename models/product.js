@@ -12,6 +12,9 @@ const productSchema = new mongoose.Schema({
     stock: { type: Number, default: 0 },
     thumbnail: { type: String },
     price: { type: Number, required: true },
+    occasion: { type: String, required: true },
+    colors: { type: String, required: true },
+    size: { type: String, required: true },
 },
     { timestamps: true }
 );
