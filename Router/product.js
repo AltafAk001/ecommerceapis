@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const product = require('../models/product');
 const Product = require('../models/product');
 const { VerifyToken } = require('./verifyToken');
 
@@ -36,7 +35,10 @@ router.post('/addproduct', async (req, res) => {
         price: req.body.price,
         occasion: req.body.occasion,
         colors: req.body.colors,
-        size: req.body.size
+        size: req.body.size,
+        countryoforigin: req.body.countryoforigin,
+        uppermaterial: req.body.uppermaterial,
+        type: req.body.type
     })
     try {
         const savedProduct = await createProduct.save();
@@ -49,7 +51,7 @@ router.post('/addproduct', async (req, res) => {
 router.put('/updateproduct/:id', (req, res) => {
     const id = req.params.id;
     try {
-        product.findByIdAndUpdate(id, req.body, { useFindAndModify: true }).then(data => {
+        Product.findByIdAndUpdate(id, req.body, { useFindAndModify: true }).then(data => {
             if (!data) {
                 res.status(404).send({
                     message: `Failed to update Product with id=${id}.`
@@ -67,7 +69,7 @@ router.put('/updateproduct/:id', (req, res) => {
 router.delete('/deleteproductbyid/:id', (req, res) => {
     const id = req.params.id;
     try {
-        product.findByIdAndDelete(id, { useFindAndModify: true }).then(data => {
+        Product.findByIdAndDelete(id, { useFindAndModify: true }).then(data => {
             if (!data) {
                 res.status(404).send({
                     message: `Failed to delete Product with id=${id}.`

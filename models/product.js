@@ -15,6 +15,9 @@ const productSchema = new mongoose.Schema({
     occasion: { type: String, required: true },
     colors: { type: String, required: true },
     size: { type: String, required: true },
+    countryoforigin: { type: String, required: true },
+    uppermaterial: { type: String, required: true },
+    type: { type: String }
 },
     { timestamps: true }
 );
